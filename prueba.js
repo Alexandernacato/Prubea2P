@@ -81,17 +81,11 @@ class Venta {
         }
     }
 
+   //producto mas vendido utlizando el reduce
     static productoMasVendido() {
-        let ventasPorProducto = {};
-        Venta.ventasRealizadas.forEach(venta => {
-            ventasPorProducto[venta.producto] = (ventasPorProducto[venta.producto] || 0) + venta.cantidad;
-        });
-
-        let maxProducto = Object.keys(ventasPorProducto).reduce((a, b) =>
-            ventasPorProducto[a] > ventasPorProducto[b] ? a : b
-        );
-
-        return maxProducto;
+        return Object.values(Venta.ventasRealizadas)
+            .reduce((max, venta) => (venta.cantidad > max.cantidad ? venta : max), {cantidad: 0
+            }) .producto;
     }
 
     static imprimirReporte(inventario) {
